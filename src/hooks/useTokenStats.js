@@ -18,7 +18,7 @@ export function useTokenStats(mint) {
       
       try {
         console.log(`🔄 Fetching stats for ${mint}`);
-        const response = await fetch(`http://localhost:3001/api/bitquery?mint=${mint}`);
+        const response = await fetch(`/api/bitquery?mint=${mint}`);
         
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);
