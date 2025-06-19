@@ -96,86 +96,100 @@ const SidePanel = ({ side, holders }) => {
 
   return (
     <div
+  style={{
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "40px 30px",
+    height: "100%",
+    textAlign: "center",
+    position: "relative",
+    overflow: "hidden",
+
+    /* 🔥 NEW — PNG first, then the original radial-gradient */
+    backgroundImage: isAllies
+      ? "url('/allies.png'), radial-gradient(circle at 20% 30%, rgba(0, 100, 255, 0.15) 0%, rgba(0, 0, 30, 0.8) 60%)"
+      : "url('/axis.png'),  radial-gradient(circle at 80% 30%, rgba(255, 50, 50, 0.15) 0%, rgba(30, 0, 0, 0.8) 60%)",
+    backgroundSize: "cover, cover",
+    backgroundRepeat: "no-repeat, no-repeat",
+    backgroundPosition: "center, center",
+
+    borderRight: isAllies ? "1px solid rgba(0, 170, 255, 0.1)" : "none",
+    borderLeft:  !isAllies ? "1px solid rgba(255, 50, 50, 0.1)" : "none",
+  }}
+>
+  {/* Animated background elements */}
+  <div
+    style={{
+      position: "absolute",
+      top: "-50%",
+      left: isAllies ? "-30%" : "70%",
+      width: "100%",
+      height: "200%",
+      background: isAllies
+        ? "radial-gradient(circle, rgba(0, 170, 255, 0.1) 0%, transparent 70%)"
+        : "radial-gradient(circle, rgba(255, 50, 50, 0.1) 0%, transparent 70%)",
+      animation: "rotate 30s linear infinite",
+      zIndex: 0,
+    }}
+  />
+
+  <div
+    style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background:
+        "url('https://www.transparenttextures.com/patterns/dark-stripes.png')",
+      opacity: 0.05,
+      zIndex: 0,
+    }}
+  />
+
+  {/* —---------------- Your existing content —---------------- */}
+  <div style={{ position: "relative", zIndex: 1, width: "100%" }}>
+    <h2
       style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "40px 30px",
-        height: "100%",
-        textAlign: "center",
+        fontSize: "clamp(36px, 5vw, 72px)",
+        marginBottom: "30px",
+        color: stats.textColor,
+        textShadow: `0 0 20px ${stats.textColor}80`,
+        fontWeight: "900",
+        letterSpacing: "2px",
+        textTransform: "uppercase",
         position: "relative",
-        overflow: "hidden",
-        background: isAllies 
-          ? "radial-gradient(circle at 20% 30%, rgba(0, 100, 255, 0.15) 0%, rgba(0, 0, 30, 0.8) 60%)" 
-          : "radial-gradient(circle at 80% 30%, rgba(255, 50, 50, 0.15) 0%, rgba(30, 0, 0, 0.8) 60%)",
-        borderRight: isAllies ? "1px solid rgba(0, 170, 255, 0.1)" : "none",
-        borderLeft: !isAllies ? "1px solid rgba(255, 50, 50, 0.1)" : "none",
+        display: "inline-block",
       }}
     >
-      {/* Animated background elements */}
-      <div style={{
-        position: "absolute",
-        top: "-50%",
-        left: isAllies ? "-30%" : "70%",
+      {stats.title}
+      <span
+        style={{
+          position: "absolute",
+          bottom: "-10px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "60%",
+          height: "3px",
+          background: stats.textColor,
+          borderRadius: "3px",
+          boxShadow: `0 0 10px ${stats.textColor}`,
+        }}
+      />
+    </h2>
+
+    <div
+      style={{
+        display: "grid",
+        gap: "20px",
+        gridTemplateColumns: "1fr",
         width: "100%",
-        height: "200%",
-        background: isAllies 
-          ? "radial-gradient(circle, rgba(0, 170, 255, 0.1) 0%, transparent 70%)"
-          : "radial-gradient(circle, rgba(255, 50, 50, 0.1) 0%, transparent 70%)",
-        animation: "rotate 30s linear infinite",
-        zIndex: 0
-      }} />
-      
-      <div style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: "url('https://www.transparenttextures.com/patterns/dark-stripes.png')",
-        opacity: 0.05,
-        zIndex: 0
-      }} />
-
-      <div style={{ position: "relative", zIndex: 1, width: '100%' }}>
-        <h2
-          style={{
-            fontSize: "clamp(36px, 5vw, 72px)",
-            marginBottom: "30px",
-            color: stats.textColor,
-            textShadow: `0 0 20px ${stats.textColor}80`,
-            fontWeight: "900",
-            letterSpacing: "2px",
-            textTransform: "uppercase",
-            position: "relative",
-            display: "inline-block"
-          }}
-        >
-          {stats.title}
-          <span style={{
-            position: "absolute",
-            bottom: "-10px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "60%",
-            height: "3px",
-            background: stats.textColor,
-            borderRadius: "3px",
-            boxShadow: `0 0 10px ${stats.textColor}`
-          }} />
-        </h2>
-
-        <div
-          style={{
-            display: "grid",
-            gap: "20px",
-            gridTemplateColumns: "1fr",
-            width: "100%",
-            maxWidth: "320px",
-            margin: "0 auto 30px auto",
-          }}
-        >
+        maxWidth: "320px",
+        margin: "0 auto 30px auto",
+      }}
+    >
           {/* Market Cap */}
           <div style={panelBox(stats.textColor)}>
             <div style={labelStyle}>🔥 MARKET CAP</div>
@@ -217,10 +231,10 @@ const SidePanel = ({ side, holders }) => {
         </div>
 
         {/* Twitter Feed Component */}
-        <TwitterFeed 
+        {/* <TwitterFeed 
           hashtag={isAllies ? "Allies" : "Axis"} 
           color={stats.textColor} 
-        />
+        /> */}
       </div>
     </div>
   );

@@ -12,11 +12,35 @@ body {
   color: #fff;
   overflow-x: hidden;
   line-height: 1.6;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 h1, h2, h3 {
   font-family: 'Orbitron', sans-serif;
   font-weight: 900;
+}
+
+.header-container {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+}
+
+.battle-bar-container {
+  position: sticky;
+  top: 104px; /* Height of header */
+  z-index: 99;
+  background: #111;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 @keyframes rotate {
@@ -53,6 +77,14 @@ h1, h2, h3 {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .header-container {
+    padding: 15px 0;
+  }
+  
+  .battle-bar-container {
+    top: 74px; /* Adjusted header height on mobile */
+  }
+
   .panel h2 {
     font-size: 36px !important;
   }
@@ -68,5 +100,20 @@ h1, h2, h3 {
   
   .valueStyle {
     font-size: 20px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .panel h2 {
+    font-size: 28px !important;
+  }
+
+  .panel button {
+    font-size: 16px !important;
+    padding: 14px 24px !important;
+  }
+
+  .battle-bar {
+    height: 18px;
   }
 }

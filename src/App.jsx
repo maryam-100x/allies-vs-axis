@@ -24,39 +24,57 @@ const App = () => {
       : "drop-shadow(0 0 20px #ff3366) drop-shadow(0 0 50px #990000)";
 
   return (
-    <div style={{
-      minHeight: "100vh",
-      background: "radial-gradient(circle at center, #0a0a1a 0%, #000000 100%)",
-      color: "#fff"
-    }}>
-      <Header />
-      <BattleMeter
-        alliesCap={alliesStats.marketCap}
-        axisCap={axisStats.marketCap}
-      />
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "radial-gradient(circle at center, #0a0a1a 0%, #000000 100%)",
+        color: "#fff",
+        position: "relative",
+      }}
+    >
+      {/* Sticky Header */}
+      <div
+        style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 999,
+          background: "#000", // Ensures the header isn't transparent on scroll
+        }}
+      >
+        <Header />
+        <BattleMeter
+          alliesCap={alliesStats.marketCap}
+          axisCap={axisStats.marketCap}
+        />
+      </div>
 
+      {/* Main layout with top padding to avoid overlap */}
       <div
         style={{
           position: "relative",
           display: "flex",
-          flexDirection: "row", // Ensure horizontal layout
-          height: "calc(100vh - 154px)",
-          minHeight: "600px"
+          flexDirection: "row",
+          minHeight: "calc(100vh - 154px)", // ensure it fills full screen height
+          paddingTop: "0px",
         }}
       >
-        <div style={{
-          flex: 1, // Takes half the space
-          position: "relative",
-          overflow: "hidden"
-        }}>
+        <div
+          style={{
+            flex: 1,
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
           <SidePanel side="allies" holders={alliesHolders} />
         </div>
 
-        <div style={{
-          flex: 1, // Takes the other half
-          position: "relative",
-          overflow: "hidden"
-        }}>
+        <div
+          style={{
+            flex: 1,
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
           <SidePanel side="axis" holders={axisHolders} />
         </div>
 
@@ -65,7 +83,7 @@ const App = () => {
           alt="VS"
           style={{
             position: "absolute",
-            top: "50%",
+            top: "45%",
             left: "50%",
             transform: "translate(-50%, -50%)",
             zIndex: 10,
@@ -74,7 +92,7 @@ const App = () => {
             animation: "vsPulse 3s ease-in-out infinite",
             filter: `${glowColor} brightness(1.2)`,
             transition: "filter 0.5s ease-in-out",
-            opacity: 0.9
+            opacity: 0.9,
           }}
         />
       </div>
